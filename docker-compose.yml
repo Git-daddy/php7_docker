@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+  web:
+    image: nginx
+    ports:
+      - "8000:80"
+    links:
+      - php
+      - mysql
+    volumes:
+      - ./sites:/etc/nginx/conf.d
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+    volumes_from:
+      - code
+
+  php:
+    build: .
+    working_dir: /var/www
+    environment:
+      #XDEBUG_CONFIG: "idekey=PHPSTORM"
+      XDEBUG_CONFIG: remote_host=10.254.254.254      
+    volumes_from:
+      - code
+
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  code:
+    image: busybox
+    volumes:
+      - ./www:/var/www
+# COPY conf/my.cnf /etc/mysql/my.cnf
+# - ./conf/php.ini:/etc/php/7.1/fpm/conf.d/40-custom.ini
+# command: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

@@ -1,0 +1,248 @@
+# Default configuration for extension with alias: "framework"
+framework:
+    secret:               ~
+
+    # Set true to enable support for the '_method' request parameter to determine the intended HTTP method on POST requests. Note: When using the HttpCache, you need to call the method in your front controller instead
+    http_method_override: true
+    ide:                  null
+    test:                 ~
+    default_locale:       en
+    trusted_hosts:        []
+    csrf_protection:
+        enabled:              null
+
+    # form configuration
+    form:
+        enabled:              false
+        csrf_protection:
+            enabled:              null
+            field_name:           _token
+
+    # esi configuration
+    esi:
+        enabled:              false
+
+    # ssi configuration
+    ssi:
+        enabled:              false
+
+    # fragments configuration
+    fragments:
+        enabled:              false
+        path:                 /_fragment
+
+    # profiler configuration
+    profiler:
+        enabled:              false
+        collect:              true
+        only_exceptions:      false
+        only_master_requests: false
+        dsn:                  'file:%kernel.cache_dir%/profiler'
+    workflows:
+        enabled:              false
+        workflows:
+
+            # Prototype
+            name:
+                audit_trail:
+                    enabled:              false
+                type:                 state_machine # One of "workflow"; "state_machine"
+                marking_store:
+                    type:                 ~ # One of "multiple_state"; "single_state"
+                    arguments:            []
+                    service:              ~
+                supports:             []
+                support_strategy:     ~
+                initial_place:        null
+                places:               [] # Required
+                transitions:          # Required
+
+                    # Prototype
+                    -
+                        name:                 ~ # Required
+
+                        # An expression to block the transition
+                        guard:                ~ # Example: is_fully_authenticated() and has_role('ROLE_JOURNALIST') and subject.getTitle() == 'My first article'
+                        from:                 []
+                        to:                   []
+
+    # router configuration
+    router:
+        enabled:              false
+        resource:             ~ # Required
+        type:                 ~
+        http_port:            80
+        https_port:           443
+
+        # set to true to throw an exception when a parameter does not match the requirements
+        # set to false to disable exceptions when a parameter does not match the requirements (and return null instead)
+        # set to null to disable parameter checks against requirements
+        # 'true' is the preferred configuration in development mode, while 'false' or 'null' might be preferred in production
+        strict_requirements:  true
+
+    # session configuration
+    session:
+        enabled:              false
+        storage_id:           session.storage.native
+        handler_id:           session.handler.native_file
+        name:                 ~
+        cookie_lifetime:      ~
+        cookie_path:          ~
+        cookie_domain:        ~
+        cookie_secure:        ~
+        cookie_httponly:      true
+        use_cookies:          ~
+        gc_divisor:           ~
+        gc_probability:       1
+        gc_maxlifetime:       ~
+        save_path:            '%kernel.cache_dir%/sessions'
+
+        # seconds to wait between 2 session metadata updates
+        metadata_update_threshold: '0'
+
+    # request configuration
+    request:
+        enabled:              false
+        formats:
+
+            # Prototype
+            name:                 []
+
+    # templating configuration
+    templating:
+        enabled:              false
+        hinclude_default_template: null
+        cache:                ~
+        form:
+            resources:
+
+                # Default:
+                - FrameworkBundle:Form
+        engines:              # Required
+
+            # Example:
+            - twig
+        loaders:              []
+
+    # assets configuration
+    assets:
+        enabled:              false
+        version_strategy:     null
+        version:              null
+        version_format:       '%%s?%%s'
+        json_manifest_path:   null
+        base_path:            ''
+        base_urls:            []
+        packages:
+
+            # Prototype
+            name:
+                version_strategy:     null
+                version:              ~
+                version_format:       null
+                json_manifest_path:   null
+                base_path:            ''
+                base_urls:            []
+
+    # translator configuration
+    translator:
+        enabled:              false
+        fallbacks:
+
+            # Default:
+            - en
+        logging:              true
+        formatter:            translator.formatter.default
+
+        # The default path used to load translations
+        default_path:         '%kernel.project_dir%/translations'
+        paths:                []
+
+    # validation configuration
+    validation:
+        enabled:              false
+        cache:                ~
+        enable_annotations:   true
+        static_method:
+
+            # Default:
+            - loadValidatorMetadata
+        translation_domain:   validators
+        strict_email:         false
+        mapping:
+            paths:                []
+
+    # annotation configuration
+    annotations:
+        enabled:              true
+        cache:                php_array
+        file_cache_dir:       '%kernel.cache_dir%/annotations'
+        debug:                true
+
+    # serializer configuration
+    serializer:
+        enabled:              false
+        enable_annotations:   true
+        name_converter:       ~
+        circular_reference_handler: ~
+        mapping:
+            paths:                []
+
+    # Property access configuration
+    property_access:
+        magic_call:           false
+        throw_exception_on_invalid_index: false
+
+    # Property info configuration
+    property_info:
+        enabled:              false
+
+    # Cache configuration
+    cache:
+
+        # Used to namespace cache keys when using several apps with the same shared backend
+        prefix_seed:          ~ # Example: my-application-name
+
+        # App related cache pools configuration
+        app:                  cache.adapter.filesystem
+
+        # System related cache pools configuration
+        system:               cache.adapter.system
+        directory:            '%kernel.cache_dir%/pools'
+        default_doctrine_provider: ~
+        default_psr6_provider: ~
+        default_redis_provider: 'redis://localhost'
+        default_memcached_provider: 'memcached://localhost'
+        pools:
+
+            # Prototype
+            name:
+                adapter:              cache.app
+                public:               false
+                default_lifetime:     ~
+
+                # The service name to use as provider when the specified adapter needs one.
+                provider:             ~
+                clearer:              ~
+
+    # PHP errors handling configuration
+    php_errors:
+
+        # Use the app logger instead of the PHP logger for logging PHP errors.
+        log:                  true
+
+        # Throw PHP errors as \ErrorException instances.
+        throw:                true
+
+    # web links configuration
+    web_link:
+        enabled:              false
+
+    # Lock configuration
+    lock:
+        enabled:              false
+        resources:
+
+            # Prototype
+            -                     []
+
