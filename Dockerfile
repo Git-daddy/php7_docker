@@ -1,12 +1,12 @@
 FROM php:7.1-fpm
 
-RUN docker-php-ext-install pdo_mysql mbstring mysqli pdo
-
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-
 #install Imagemagick & PHP Imagick ext
 RUN apt-get update && apt-get install -y \
-        libmagickwand-dev --no-install-recommends
+        libmagickwand-dev git zlib1g-dev --no-install-recommends
+
+RUN docker-php-ext-install pdo_mysql mbstring mysqli pdo zip 
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN pecl install imagick && docker-php-ext-enable imagick
 

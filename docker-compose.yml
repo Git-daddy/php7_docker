@@ -5,6 +5,8 @@ services:
     image: nginx
     ports:
       - "8000:80"
+      - "8001:81"
+#      - "8002:82"
     links:
       - php
       - mysql
