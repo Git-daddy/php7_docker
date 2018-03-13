@@ -13,5 +13,8 @@ RUN pecl install imagick && docker-php-ext-enable imagick
 #COPY conf/php.ini /etc/php/7.1/fpm/conf.d/40-custom.ini
 
 COPY conf/php.ini /usr/local/etc/php/conf.d/40-custom.ini
-COPY conf/composer.phar /usr/local/bin/composer
+#COPY conf/composer.phar /usr/local/bin/composer
+COPY --from=composer:1.5 /usr/bin/composer /usr/bin/composer
 COPY conf/my.cnf /etc/mysql/my.cnf
+
+#CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
