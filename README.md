@@ -8,7 +8,7 @@ In order to assist in teaching the building of simple PHP applications and under
 * [Nginx](http://nginx.org/)
 * [MySQL](http://www.mysql.com/)
 * [PHP 7](http://php.net/)
-
+    ** Imagick Extension
 ## Requirements
 
 * [Docker Native](https://www.docker.com/products/overview)
