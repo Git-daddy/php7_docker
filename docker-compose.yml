@@ -29,10 +29,13 @@ services:
     image: mysql
     ports:
       - "3306:3306"
-    volumes:
-      - ./mysql:/var/lib/mysql
+#    volumes:
+#      - ./mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: sunostatic
+       MYSQL_USER: sunostatic
+       MYSQL_PASSWORD: 123456
 
   code:
     image: busybox
