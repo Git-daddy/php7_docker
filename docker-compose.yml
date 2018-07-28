@@ -3,10 +3,9 @@ services:
 
   web:
     image: nginx
+    container_name: nginx
     ports:
       - "8000:80"
-      - "8001:81"
-#      - "8002:82"
     links:
       - php
       - mysql
@@ -18,19 +17,22 @@ services:
 
   php:
     build: .
+    container_name: php
     working_dir: /var/www
     environment:
-      #XDEBUG_CONFIG: "idekey=PHPSTORM"
-      XDEBUG_CONFIG: remote_host=10.254.254.254      
+      XDEBUG_CONFIG: "idekey=PHPSTORM"
+      XDEBUG_CONFIG: remote_host=10.254.254.254
     volumes_from:
       - code
 
   mysql:
     image: mysql
+    container_name: mysql
     ports:
       - "3306:3306"
-#    volumes:
-#      - ./mysql:/var/lib/mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
     environment:
        MYSQL_ROOT_PASSWORD: root
        MYSQL_DATABASE: defaultdb
@@ -39,6 +41,7 @@ services:
 
   code:
     image: busybox
+    container_name: code
     volumes:
       - ./www:/var/www
 # COPY conf/my.cnf /etc/mysql/my.cnf
