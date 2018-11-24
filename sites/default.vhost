@@ -1,6 +1,6 @@
 server {
   server_name default;
-  root        /var/www/default/public;
+  root        /var/www/default;
   index       index.html index.php;
 
   client_max_body_size 100M;
