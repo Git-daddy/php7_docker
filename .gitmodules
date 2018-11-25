@@ -1,0 +1,3 @@
+[submodule "www/default"]
+	path = www/default
+	url = https://quocsonpham@bitbucket.org/quocsonpham/suno.static.git

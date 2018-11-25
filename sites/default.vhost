@@ -1,6 +1,6 @@
 server {
   server_name default;
-  root        /var/www/default/public;
+  root        /var/www/default;
   index       index.html index.php;
 
   client_max_body_size 100M;
@@ -16,27 +16,18 @@ server {
     access_log    off;
   }
 
-#  location ~ \.php$ {
-#    try_files     $uri =404;
-#    include       fastcgi_params;
-#    fastcgi_index index.php;
-#    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#    fastcgi_pass  php:9000;
-#  }
+  if (!-e $request_filename) {
+      rewrite ^.*$ /index.php last;
+  }
 
-    if (!-e $request_filename) {
-        rewrite ^.*$ /index.php last;
+  location ~ \.php$ {
+      #fastcgi_pass php-fpm:9000;
+      fastcgi_pass  php:9000;
+      fastcgi_index index.php;
+      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      fastcgi_param PHP_VALUE "error_log=/var/log/nginx/application_php_errors.log";
+      fastcgi_buffers 16 16k;
+      fastcgi_buffer_size 32k;
+      include fastcgi_params;
     }
-
-    location ~ \.php$ {
-        #fastcgi_pass php-fpm:9000;
-        fastcgi_pass  php:9000;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param PHP_VALUE "error_log=/var/log/nginx/application_php_errors.log";
-        fastcgi_buffers 16 16k;
-        fastcgi_buffer_size 32k;
-        include fastcgi_params;
-    }
-
 }
