@@ -1,0 +1,26 @@
+version: '2'
+services:
+  # code_php:
+  #   volumes:
+  #   - code:/var/www
+  nginx_webserver:
+    volumes:
+    - code:/var/www
+  php:
+    volumes:
+    - code:/var/www
+volumes:
+  code:
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+      mode: "two-way-resolved"
+      configurationBeta:
+        permissions:
+          defaultFileMode: "0664"
+          defaultDirectoryMode: "775"
+    code:
+      alpha: "./www"
+      beta: "volume://code"
